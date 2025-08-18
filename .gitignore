@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AIFounday-SemanticKernel-1/.vs
+/AIFounday-SemanticKernel-1/AIFounday-SemanticKernel-1/bin/Debug/net8.0
+/AIFounday-SemanticKernel-1/AIFounday-SemanticKernel-1/obj
