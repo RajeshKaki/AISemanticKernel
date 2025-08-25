@@ -1,19 +1,17 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
+using Microsoft.SemanticKernel.Agents.AzureAI;
 using System.Text;
 
 namespace AIFounday_SemanticKernel_1
 {
-    public class DocumentAnalyzerService : IDocumentAnalyzerService
+    public class DocumentAnalyzerService(Kernel kernel, ILogger<DocumentAnalyzerService> logger) : IDocumentAnalyzerService
     {
-        private readonly Kernel _kernel;
-        private readonly ILogger<DocumentAnalyzerService> _logger;
-
-        public DocumentAnalyzerService(Kernel kernel, ILogger<DocumentAnalyzerService> logger)
-        {
-            _kernel = kernel;
-            _logger = logger;
-        }
+        private readonly Kernel _kernel = kernel;
+        private readonly ILogger<DocumentAnalyzerService> _logger = logger;
+        private readonly IChatCompletionService _chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
         public async Task<string> AnalyzeDocumentAsync(string documentContent, string query)
         {
@@ -23,7 +21,7 @@ namespace AIFounday_SemanticKernel_1
 
                 // Create a prompt for document analysis with the user's query
                 var prompt = @$"
-You are an AI assistant that analyzes documents and answers questions about them.
+You are an Car Insurance assistant that analyzes insurance documents and answers questions about them.
 
 DOCUMENT CONTENT:
 {{documentContent}}
